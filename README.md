@@ -17,3 +17,4 @@ composer require aws/aws-sdk-php
 criei a TextToSpeechController e iniciei uma instacia do aws polly
 e converti o texto em audio e depois tranformei o audio em binario para poder capturar ele na minha view blade
 
+voce vai precisar configurar o aws polly colocando sua AWS_ACCESS_KEY_ID , AWS_SECRET_ACCESS_KEY e AWS_DEFAULT_REGION=sa-east-1
