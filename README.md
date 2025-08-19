@@ -28,7 +28,7 @@ Para rodar este projeto localmente, você precisará de:
 Clone este repositório e navegue até a pasta do projeto. Em seguida, instale as dependências do AWS SDK com o Composer:
 
 #```bash
-# composer require aws/aws-sdk-php
+composer require aws/aws-sdk-php
 
 **Configuração da AWS**
 O projeto depende das suas credenciais da AWS para se conectar ao serviço Amazon Polly. Configure-as no arquivo de ambiente .env na raiz do projeto
