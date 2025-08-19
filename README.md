@@ -1,20 +1,49 @@
-Este projeto foi desenvolvido como parte do Teste Prático - Estágio em Desenvolvimento Laravel + PHP.
-Laravel Framework 12.24.0
-PHP 8.3.16
-O sistema permite que o usuário digite um texto em um formulário e receba o áudio gerado a partir do Amazon Polly (Text-to-Speech), diretamente no navegador.
-Foi usado tambem para criar o projeto o Laragon que é um ambiente de programaçao web
+# Projeto Text-to-Speech com Laravel e Amazon Polly
 
-Primeiro ou contruir a rota do meu projeto no arquivo web.php onde criei uma rota simples que faz uma requisiçao HTTP do tipo GET para uma view chamada "HOME".
-como eu usei laragon ele cria host virtuais e eu colocoquei o nome de "top" 
-"nome do projeto".top
-http://projetoescalar.top/home "so vai funcionar na minha maquina isso aqui"
-para funcionar na sua o jeito mais facil é baixando o laragon e usar a url 
-http://projetoescalar.test/home
+Este projeto foi desenvolvido como parte de um teste prático de estágio em Desenvolvimento Laravel + PHP, com o objetivo de criar uma aplicação que converte texto em áudio usando o serviço **Amazon Polly**.
 
-apos isso eu instalei o sdk da aws no prompt dentro da minha pasta do projeto
-composer require aws/aws-sdk-php
+## Tecnologias Utilizadas
 
-criei a TextToSpeechController e iniciei uma instacia do aws polly
-e converti o texto em audio e depois tranformei o audio em binario para poder capturar ele na minha view blade
+* **Laravel Framework:** `12.24.0`
+* **PHP:** `8.3.16`
+* **Ambiente de Desenvolvimento:** Laragon
+* **Serviço de Nuvem:** Amazon Polly (Text-to-Speech)
+* **Biblioteca:** AWS SDK for PHP
 
-voce vai precisar configurar o aws polly colocando sua AWS_ACCESS_KEY_ID , AWS_SECRET_ACCESS_KEY e AWS_DEFAULT_REGION=sa-east-1
+## Funcionalidades
+
+O sistema permite que um usuário insira um texto em um formulário e, em seguida, receba um áudio gerado a partir do texto, que é reproduzido diretamente no navegador.
+
+## Como Executar o Projeto
+
+### Pré-requisitos
+
+Para rodar este projeto localmente, você precisará de:
+
+* **Laragon:** Um ambiente de desenvolvimento web completo. [Clique aqui para baixar o Laragon.](https://laragon.org/download/)
+* **Conta na AWS:** Para utilizar o Amazon Polly, é necessário ter uma conta na Amazon Web Services.
+
+### 1. Configuração do Ambiente e Dependências
+
+Clone este repositório e navegue até a pasta do projeto. Em seguida, instale as dependências do AWS SDK com o Composer:
+
+#```bash
+# composer require aws/aws-sdk-php
+
+**Configuração da AWS**
+O projeto depende das suas credenciais da AWS para se conectar ao serviço Amazon Polly. Configure-as no arquivo de ambiente .env na raiz do projeto
+AWS_ACCESS_KEY_ID="sua_chave_de_acesso"
+AWS_SECRET_ACCESS_KEY="sua_chave_secreta"
+AWS_DEFAULT_REGION="sua_regiao" # Ex: sa-east-1
+
+Executando o Servidor Local
+Se você estiver usando o Laragon, o ambiente já estará configurado para a URL http://projetoescalar.test/home. Basta iniciar o Laragon e a aplicação estará acessível.
+
+**Como o Código Funciona**
+Rotas (web.php): O projeto utiliza uma rota GET para o caminho /home, que retorna a view home.blade.php.
+
+Controlador (TextToSpeechController): A lógica principal reside no TextToSpeechController. No seu construtor, uma nova instância do PollyClient da AWS é inicializada, usando as credenciais do arquivo .env.
+
+Processamento de Áudio: Ao receber o texto, o controlador utiliza o PollyClient para converter o texto em um stream de áudio. Esse stream binário é então codificado em Base64 para ser transmitido de forma segura para a view.
+
+Visualização (home.blade.php): A view recebe um binario Base64 do áudio e a insere em uma tag <audio> do HTML, permitindo que o navegador a reproduza diretamente.
